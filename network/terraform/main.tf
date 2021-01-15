@@ -1,3 +1,19 @@
+terraform {
+  required_version = ">=0.14.0"
+
+  required_providers {
+    unifi = {
+      source  = "paultyng/unifi"
+      version = "0.19.1"
+    }
+
+    pass = {
+      source  = "camptocamp/pass"
+      version = "1.4.0"
+    }
+  }
+}
+
 provider "pass" {}
 
 provider "unifi" {

@@ -26,7 +26,7 @@ variable "wlan" {
   description = "WLAN networks to create"
   type = list(object({
     ssid = string
-    vlan_id = number
+    vlan_name = string
     secured = bool
     is_guest = bool
   }))

@@ -1,5 +1,5 @@
-api_url="https://10.134.0.12:8443/api/"
-pass_prefix="Personal/Network"
+api_url="https://unifi:8443"
+pass_prefix="personal/network"
 
 cidr="10.134.0.0/18"
 vlan=[
@@ -23,23 +23,24 @@ vlan=[
     vlan_id = 40
     purpose="corporate"
   },
-  {
-    name = "laine-cloud"
-    vlan_id = 50
-    purpose="corporate"
-  }
 ]
 wlan=[
   {
     ssid = "äggobacon"
-    vlan_id = 20
+    vlan_name = "wifi"
     secured = true
     is_guest = false
   },
   {
     ssid = "äggobacon-guest"
-    vlan_id = 30
+    vlan_name = "guest"
     secured = false
     is_guest = true
-  }
+  },
+  {
+    ssid = "lab"
+    vlan_name = "lab"
+    secured = true
+    is_guest = false
+  },
 ]

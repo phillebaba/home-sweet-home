@@ -1,4 +1,20 @@
-resource "unifi_network" "main" {
+data "pass_password" "unifi_controller" {
+  path = "${var.pass_prefix}/unifi"
+}
+
+#data "unifi_ap_group" "default" {}
+
+data "unifi_user_group" "default" {}
+
+data "pass_password" "wlan" {
+  for_each = {
+    for key, value in local.wlan: key => value
+    if value.secured
+  }
+  path = "${var.pass_prefix}/${each.value.ssid}"
+}
+
+resource "unifi_network" "this" {
   for_each = local.vlan
 
   name    = each.value.name
@@ -11,14 +27,15 @@ resource "unifi_network" "main" {
   domain_name = ""
 }
 
-resource "unifi_wlan" "main" {
+resource "unifi_wlan" "this" {
   for_each = local.wlan
 
   name          = each.value.ssid
-  vlan_id       = each.value.vlan_id
-  passphrase    = each.value.secured ? data.pass_password.wlan[each.value.ssid].password : ""
   security      = each.value.secured ? "wpapsk" : "open"
-  wlan_group_id = data.unifi_wlan_group.default.id
   user_group_id = data.unifi_user_group.default.id
+  network_id       = unifi_network.this[each.value.vlan_name].id
+  passphrase    = each.value.secured ? data.pass_password.wlan[each.value.ssid].password : ""
   is_guest = each.value.is_guest
+  ap_group_ids = ["5faff28a699f1a1b3635d0a1"]
+  #ap_group_ids = [data.unifi_user_group.default.name]
 }
