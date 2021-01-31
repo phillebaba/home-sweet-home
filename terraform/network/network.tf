@@ -75,7 +75,7 @@ resource "unifi_firewall_rule" "wifi_drop_all_in" {
   ruleset = "LAN_IN"
   rule_index = 2299
   protocol = "all"
-  dst_network_id = unifi_network.admin.id
+  dst_network_id = unifi_network.wifi.id
 }
 
 data "pass_password" "wifi" {
@@ -110,7 +110,7 @@ resource "unifi_firewall_rule" "guest_drop_all_in" {
   ruleset = "LAN_IN"
   rule_index = 2399
   protocol = "all"
-  dst_network_id = unifi_network.admin.id
+  dst_network_id = unifi_network.guest.id
 }
 
 resource "unifi_wlan" "guest" {
