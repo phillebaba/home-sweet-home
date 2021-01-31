@@ -12,22 +12,3 @@ variable "cidr" {
   description = "Base cidr to use for the networks"
   type = string
 }
-
-variable "vlan" {
-  description = "VLAN networks to create"
-  type = list(object({
-    name = string
-    vlan_id = number
-    purpose = string
-  }))
-}
-
-variable "wlan" {
-  description = "WLAN networks to create"
-  type = list(object({
-    ssid = string
-    vlan_name = string
-    secured = bool
-    is_guest = bool
-  }))
-}
