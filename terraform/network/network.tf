@@ -1,5 +1,7 @@
 data "unifi_user_group" "default" {}
 
+data "unifi_ap_group" "default" {}
+
 locals {
   lan_id = "5fafd4a0699f1a03b6103767"
 }
@@ -87,8 +89,7 @@ resource "unifi_wlan" "wifi" {
   network_id    = unifi_network.wifi.id
   passphrase    = data.pass_password.wifi.password
   is_guest      = false
-  ap_group_ids  = ["5faff28a699f1a1b3635d0a1"]
-  #ap_group_ids = [data.unifi_user_group.default.name]
+  ap_group_ids = [data.unifi_ap_group.default.id]
 }
 
 # Guest
@@ -119,8 +120,7 @@ resource "unifi_wlan" "guest" {
   network_id    = unifi_network.guest.id
   passphrase    = ""
   is_guest      = true
-  ap_group_ids  = ["5faff28a699f1a1b3635d0a1"]
-  #ap_group_ids = [data.unifi_user_group.default.name]
+  ap_group_ids = [data.unifi_ap_group.default.id]
 }
 
 # Lab
