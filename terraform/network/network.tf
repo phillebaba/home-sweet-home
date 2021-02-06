@@ -154,3 +154,16 @@ resource "unifi_firewall_rule" "lab_drop_all_in" {
   dst_network_id = unifi_network.lab.id
 }
 
+data "pass_password" "lab" {
+  path = "${var.pass_prefix}/wifi/lab"
+}
+
+resource "unifi_wlan" "lab" {
+  name          = "lab"
+  security      = "wpapsk"
+  user_group_id = data.unifi_user_group.default.id
+  network_id    = unifi_network.lab.id
+  passphrase    = data.pass_password.lab.password
+  is_guest      = false
+  ap_group_ids = [data.unifi_ap_group.default.id]
+}
