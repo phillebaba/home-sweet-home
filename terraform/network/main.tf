@@ -1,13 +1,13 @@
 terraform {
-  required_version = ">=0.14.5"
+  required_version = "0.15.4"
   required_providers {
     unifi = {
       source  = "paultyng/unifi"
-      version = "0.19.1"
+      version = "0.26.0"
     }
     pass = {
       source  = "camptocamp/pass"
-      version = "1.4.0"
+      version = "2.0.0"
     }
   }
 }
